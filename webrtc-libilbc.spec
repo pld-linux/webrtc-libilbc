@@ -9,7 +9,7 @@ Summary(pl.UTF-8):	Kodek mowy iLBC z projektu WebRTC
 Name:		webrtc-libilbc
 Version:	1.1.1
 %define	snap	20120913
-Release:	0.%{snap}.1
+Release:	0.%{snap}.2
 License:	BSD
 Group:		Libraries
 # git clone git://github.com/dekkers/libilbc.git

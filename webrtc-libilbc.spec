@@ -7,18 +7,16 @@
 Summary:	iLBC speech codec from the WebRTC project
 Summary(pl.UTF-8):	Kodek mowy iLBC z projektu WebRTC
 Name:		webrtc-libilbc
-Version:	1.1.1
-%define	snap	20120913
-Release:	0.%{snap}.2
+Version:	2.0.2
+Release:	1
 License:	BSD
 Group:		Libraries
-# git clone git://github.com/dekkers/libilbc.git
-Source0:	libilbc.tar.xz
-# Source0-md5:	69c52eaa5157921f87fe68ffd7197392
-URL:		https://github.com/dekkers/libilbc
+Source0:	https://github.com/TimothyGu/libilbc/archive/v%{version}/libilbc-%{version}.tar.gz
+# Source0-md5:	026e157955685cc7165d7896a12fc5d3
+URL:		https://github.com/TimothyGu/libilbc
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
 Obsoletes:	libilbc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -58,12 +56,13 @@ Static iLBC library.
 Statyczna biblioteka iLBC.
 
 %prep
-%setup -q -n libilbc
+%setup -q -n libilbc-%{version}
 
 %build
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--disable-silent-rules
@@ -76,6 +75,11 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libilbc.la
+# packaged as %doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/libilbc
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -84,14 +88,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc COPYING README
+%doc COPYING NEWS.md README.md
 %attr(755,root,root) %{_libdir}/libilbc.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libilbc.so.0
+%attr(755,root,root) %ghost %{_libdir}/libilbc.so.2
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libilbc.so
-%{_libdir}/libilbc.la
 %{_includedir}/ilbc.h
 %{_pkgconfigdir}/libilbc.pc
 

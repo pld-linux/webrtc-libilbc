@@ -8,7 +8,7 @@ Summary:	iLBC speech codec from the WebRTC project
 Summary(pl.UTF-8):	Kodek mowy iLBC z projektu WebRTC
 Name:		webrtc-libilbc
 Version:	3.0.4
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 #Source0Download: https://github.com/TimothyGu/libilbc/releases
